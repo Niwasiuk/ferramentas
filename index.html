@@ -72,6 +72,17 @@
   .pain-list li{ display:flex; gap:12px; align-items:flex-start; background:var(--bg-panel); border:1px solid var(--steel-line); border-radius:var(--radius); padding:14px 16px; font-size:15px; }
   .pain-list li .x{ color:var(--accent); font-weight:700; flex-shrink:0; }
 
+  .video-wrap{
+    position:relative; width:100%; aspect-ratio:16/9; border-radius:var(--radius);
+    overflow:hidden; border:1px solid var(--steel-line); background:linear-gradient(160deg, var(--accent-2), #1a1240);
+    cursor:pointer; margin-top:18px;
+  }
+  .video-wrap img{ width:100%; height:100%; object-fit:cover; opacity:0.85; position:relative; z-index:0; }
+  .video-wrap iframe{ width:100%; height:100%; border:none; }
+  .video-play{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; z-index:2; pointer-events:none; }
+  .video-play .circle{ width:64px; height:64px; border-radius:50%; background:rgba(220,20,9,0.9); display:flex; align-items:center; justify-content:center; }
+  .video-play svg{ width:24px; height:24px; }
+
   .cat-block{ border-top:1px solid var(--steel-line); padding:16px 0; }
   .cat-block:last-child{ border-bottom:1px solid var(--steel-line); }
   .cat-name{ font-weight:700; font-size:14px; color:var(--accent-2-light); text-transform:uppercase; letter-spacing:0.04em; margin-bottom:8px; }
@@ -163,6 +174,16 @@
       <li><span class="x">✕</span> Gancho torto improvisado pro saque de retentor</li>
       <li><span class="x">✕</span> Resultado: carcaça riscada, retentor estragado, ferramenta quebrada e retrabalho</li>
     </ul>
+  </section>
+
+  <section>
+    <div class="eyebrow blue">Veja antes de comprar</div>
+    <h2 class="display">COMO USAR CADA FERRAMENTA DO KIT</h2>
+    <p class="lead">Tutorial completo mostrando na prática a aplicação das ferramentas.</p>
+    <div class="video-wrap" id="tutorial-video">
+      <img src="https://i.ytimg.com/vi/5IzgdOgD17k/hqdefault.jpg" alt="Tutorial do kit de ferramentas" loading="lazy" onerror="this.style.display='none'">
+      <div class="video-play"><div class="circle"><svg viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg></div></div>
+    </div>
   </section>
 
   <section>
@@ -288,7 +309,8 @@
   <div class="footer-copy">Oficina Eficiente © 2026</div>
 </footer>
 
-<div class="sticky-cta"><a class="cta-btn" href="#cadastro">Quero o kit de ferramentas!
+<div class="sticky-cta"><a class="cta-btn" href="#cadastro">Quero o kit de ferramentas!</a></div>
+
 <script>
 /* =========================================================================
    CONFIGURAÇÃO — cole aqui a MESMA URL e chave publishable já usadas no quiz
@@ -346,6 +368,11 @@ btn.onclick = async () => {
 
   const msg = encodeURIComponent(`Olá! Meu nome é ${nome}. Tenho interesse no Kit Profissional de Ferramentas para Direção Hidráulica (35 peças).`);
   window.location.href = `https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`;
+};
+
+const tutorialVideo = document.getElementById('tutorial-video');
+tutorialVideo.onclick = () => {
+  tutorialVideo.innerHTML = `<iframe src="https://www.youtube.com/embed/5IzgdOgD17k?autoplay=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
 };
 
 /* Tabela de compatibilidade */
