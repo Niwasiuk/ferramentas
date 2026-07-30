@@ -154,6 +154,15 @@
   .price-box .now{ font-family:'Bebas Neue', sans-serif; font-size:48px; line-height:1; }
   .price-box .inst{ font-size:14px; color:var(--text-dim); margin-top:4px; }
 
+  .pay-options{ list-style:none; margin:20px 0; display:flex; flex-direction:column; gap:10px; }
+  .pay-options li{
+    background: var(--bg-panel); border:1px solid var(--steel-line); border-radius:var(--radius);
+    padding:14px 16px;
+  }
+  .pay-options .pay-title{ font-weight:700; font-size:14px; margin-bottom:4px; }
+  .pay-options .pay-detail{ font-size:13px; color:var(--text-dim); }
+  .pay-options .pay-detail strong{ color:var(--text); }
+
   .form-card{ background:var(--bg-panel); border:1px solid var(--steel-line); border-radius:var(--radius); padding:22px 20px; margin-top:20px; }
   .field{ display:flex; flex-direction:column; gap:6px; margin-bottom:14px; }
   .field label{ font-size:12px; color:var(--text-dim); }
@@ -192,7 +201,7 @@
       <div class="item"><div class="n mono">CNC</div><div class="l">Fabricação de precisão</div></div>
     </div>
     <a class="cta-btn" href="#cadastro">Quero garantir o meu kit</a>
-    <div class="cta-sub">R$ 5.997 à vista ou 5x sem juros</div>
+    <div class="cta-sub">R$ 5.997 à vista, 12x no cartão, ou parcelado com entrada</div>
   </section>
 
   <section>
@@ -317,8 +326,22 @@
     <h2 class="display">QUERO O KIT PROFISSIONAL</h2>
     <div class="price-box">
       <div class="now">R$ 5.997</div>
-      <div class="inst">ou 5x sem juros no cartão</div>
+      <div class="inst">à vista no PIX ou boleto</div>
     </div>
+    <ul class="pay-options">
+      <li>
+        <div class="pay-title">💳 Cartão de crédito</div>
+        <div class="pay-detail">Até <strong>12x de R$ 620,23</strong></div>
+      </li>
+      <li>
+        <div class="pay-title">🔄 Parcelamento inteligente</div>
+        <div class="pay-detail">Entrada de <strong>R$ 797,00</strong> + até <strong>9x de R$ 756,48</strong> — cobrança automática, sem usar o limite do cartão.</div>
+      </li>
+      <li>
+        <div class="pay-title">💰 Bolepix parcelado</div>
+        <div class="pay-detail">Entrada de <strong>R$ 797,00</strong> + até <strong>9x de R$ 773,76</strong> — pague a 1ª parcela via boleto, PIX ou cartão.</div>
+      </li>
+    </ul>
     <div class="form-card">
       <div class="field">
         <label for="nome">Nome</label>
@@ -328,8 +351,8 @@
         <label for="whatsapp">WhatsApp</label>
         <input type="tel" id="whatsapp" placeholder="(00) 00000-0000" autocomplete="tel">
       </div>
-      <button class="cta-btn" id="submit-btn">Falar com a equipe no WhatsApp</button>
-      <div class="form-note">Você será direcionado ao WhatsApp pra confirmar o pedido e a forma de pagamento.</div>
+      <button class="cta-btn" id="submit-btn">Ir para o pagamento</button>
+      <div class="form-note">Você será direcionado ao pagamento pra finalizar o pedido.</div>
     </div>
   </section>
 
@@ -375,6 +398,7 @@ try {
 } catch (e) { console.warn("Supabase não inicializado:", e); }
 
 const WHATSAPP_NUMBER = "5511964078463";
+const LIA_CHECKOUT_URL = "https://pague.lia.com.br/oficina-eficiente/oferta?offer_id=7e751dc5-c201-4a49-a1d5-ddb89cb6dc75";
 
 const btn = document.getElementById('submit-btn');
 btn.onclick = async () => {
@@ -382,7 +406,7 @@ btn.onclick = async () => {
   const whatsapp = document.getElementById('whatsapp').value.trim();
   if (!nome || !whatsapp){
     btn.textContent = "Preencha nome e WhatsApp";
-    setTimeout(()=>{ btn.textContent = "Falar com a equipe no WhatsApp"; }, 1800);
+    setTimeout(()=>{ btn.textContent = "Ir para o pagamento"; }, 1800);
     return;
   }
   btn.disabled = true;
@@ -397,8 +421,7 @@ btn.onclick = async () => {
     console.warn('Supabase não configurado — lead não foi salvo:', { nome, whatsapp });
   }
 
-  const msg = encodeURIComponent(`Olá! Meu nome é ${nome}. Tenho interesse no Kit Profissional de Ferramentas para Direção Hidráulica (35 peças).`);
-  window.location.href = `https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`;
+  window.location.href = LIA_CHECKOUT_URL;
 };
 
 const tutorialVideo = document.getElementById('tutorial-video');
